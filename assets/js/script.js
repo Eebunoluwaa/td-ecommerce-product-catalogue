@@ -42,8 +42,13 @@ const search = document.getElementById("search_product");
 
 search.addEventListener("input", (e) => {
   let { value } = e.target;
-
   value = value.toUpperCase();
+  
+  var error = document.createElement("p");
+  var errorMessage = document.createTextNode("Item not found");
+  error.appendChild(errorMessage);
+  productList.appendChild(error);
+  error.style.fontSize = "30px";
 
   for (let i = 0; i < products.length; i++) {
     const product = products[i];
@@ -53,9 +58,12 @@ search.addEventListener("input", (e) => {
     
     if (name.includes(value) || price.includes(value)) {
       product.style.display = "block";
-    }else{
-      productList.innerHTML = "This product does not exist";
-      productList.style.fontSize = '30px';
+      error.style.display = "none"
+    } else {
+      product.style.display = "none";
+      error.style.display = "block";
+      
     }
+    
   }
 });
